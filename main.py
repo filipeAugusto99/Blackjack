@@ -9,10 +9,9 @@ import random
 def compare_scores(score_player, score_computer, player, computer):
     """Compare scores between player and computer and print the result"""
     
+
     if score_player > 21:
-        print(f"\nYour final hand: {player}, final score {score_player}\n")
-        print(f"Computer's final hand {computer}, final score {score_computer}\n")
-        print("You went over. You lose :(")
+        pass
     elif score_computer > 21:
         print(f"\nYour final hand: {player}, final score {score_player}\n")
         print(f"Computer's final hand {computer}, final score {score_computer}\n")
@@ -22,9 +21,7 @@ def compare_scores(score_player, score_computer, player, computer):
         print(f"Computer's final hand {computer}, final score {score_computer}\n")
         print("Draw!")
     elif score_player == 21:
-        print(f"\nYour final hand: {player}, final score {score_player}\n")
-        print(f"Computer's final hand {computer}, final score {score_computer}\n")
-        print("Blackjack! You win :) !!")
+        pass
     elif score_player > score_computer:
         print(f"\nYour final hand: {player}, final score {score_player}\n")
         print(f"Computer's final hand {computer}, final score {score_computer}\n")
@@ -45,7 +42,7 @@ def player_turn(player, computer, cards):
 
         # if player already has blackjack, stop
         if score_player == 21:
-            print("You got a BlackJack!!!")
+            print("You got a BlackJack!!! YOU WIN!")
             break
 
         # ask player to draw or pass
@@ -58,6 +55,12 @@ def player_turn(player, computer, cards):
         elif another_card_or_pass == "y":
             player.append(random.choice(cards))
             score_player = sum(player)
+            
+             # logic Ás
+            if 11 in player and score_player > 21:
+                player.remove(11)
+                player.append(1)
+                score_player = sum(player)
 
             # check if player went over 21
             if score_player > 21:
@@ -119,7 +122,8 @@ def play():
 
             # call function that handles player's turn
             player, score_player = player_turn(player, computer, cards)
-
+            
+           
             # finally compare both scores
             compare_scores(score_player, score_computer, player, computer)
 
